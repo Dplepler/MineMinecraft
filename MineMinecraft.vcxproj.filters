@@ -19,6 +19,9 @@
     <Filter Include="Resource Files\Textures">
       <UniqueIdentifier>{fb5f2466-3ad3-4742-923f-367f5bd04979}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Blocks">
+      <UniqueIdentifier>{8a057d7c-a0e4-409c-bddd-b9bd4d97100e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glad.c">
@@ -46,6 +49,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="blocks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dirt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -81,6 +90,12 @@
     </ClInclude>
     <ClInclude Include="camera.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="blocks.h">
+      <Filter>Header Files\Blocks</Filter>
+    </ClInclude>
+    <ClInclude Include="dirt.h">
+      <Filter>Header Files\Blocks</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

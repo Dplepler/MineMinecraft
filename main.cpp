@@ -7,15 +7,18 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "Texture.h"
+
 #include "shaderClass.h"
 #include "VAO.h"
 #include "VBO.h"
 #include "EBO.h"
 #include "camera.h"
-#include "dirt.h"
+#include "blocks.h"
 
 #define WIDTH 1920
 #define HEIGHT 1080
+
+void print_block(Block* block, unsigned int type);
 
 GLfloat size = .1f;
 GLfloat x = -.5f;
@@ -111,7 +114,6 @@ GLuint lightIndices[] =
 };
 
 
-
 int main()
 {
 	// Initialize GLFW
@@ -125,7 +127,7 @@ int main()
 	// So that means we only have the modern functions
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	// Create a GLFWwindow object of 1920 by 1080 pixels, naming it "YoutubeOpenGL"
+	// Create a GLFWwindow object of 1920 by 1080 pixels
 	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "MineMinecraft", NULL, NULL);
 	// Error check if the window fails to create
 	if (window == NULL)
@@ -148,34 +150,9 @@ int main()
 	// Generates Shader object using shaders default.vert and default.frag
 	Shader shaderProgram("default.vert", "default.frag");
 
-	
+	Block* block = new Block(block->BLOCK_DIRT);
 
-	// ------------------------------------------------------------
-	VAO* VAO1 = new VAO();
-	VAO1->Bind();
-
-	VBO* VBO1 = new VBO(vertices, VERTICES_SIZE * sizeof(float));
-	EBO* EBO1 = new EBO(indices, INDICES_SIZE * sizeof(unsigned int));
-
-
-	glm::vec3 blockPos = glm::vec3(0.f, 0.f, 0.f);
-	glm::mat4 blockModel = glm::mat4(1.0f);
-	blockModel = glm::translate(blockModel, blockPos);
-
-	// Links VBO attributes such as coordinates and colors to VAO
-	VAO1->LinkAttrib(*(VBO1), 0, 3, GL_FLOAT, 11 * sizeof(float), (void*)0);
-	VAO1->LinkAttrib(*(VBO1), 1, 3, GL_FLOAT, 11 * sizeof(float), (void*)(3 * sizeof(float)));
-	VAO1->LinkAttrib(*(VBO1), 2, 2, GL_FLOAT, 11 * sizeof(float), (void*)(6 * sizeof(float)));
-	VAO1->LinkAttrib(*(VBO1), 3, 3, GL_FLOAT, 11 * sizeof(float), (void*)(8 * sizeof(float)));
-
-	// Prevent from accidentally modifying these values
-	VAO1->Unbind();
-	VBO1->Unbind();
-	EBO1->Unbind();
-
-	// ------------------------------------------------------------
-
-	Dirt dirtBlock(.5f, -.5f, .5f, -.5f, &shaderProgram);
+	block->generateTexture(&shaderProgram);
 
 
 	// Shader for light cube
@@ -203,11 +180,11 @@ int main()
 	glUniformMatrix4fv(glGetUniformLocation(lightShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(lightModel));
 	glUniform4f(glGetUniformLocation(lightShader.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
 
+	glm::vec3 blockPos = glm::vec3(0.f, 0.f, 0.f);
+	glm::mat4 blockModel = glm::mat4(1.0f);
+	blockModel = glm::translate(blockModel, blockPos);
 	
-
 	shaderProgram.Activate();
-	glUniformMatrix4fv(glGetUniformLocation(shaderProgram.ID, "model"), 1, GL_FALSE, glm::value_ptr(*dirtBlock.blockModel));
-
 	glUniformMatrix4fv(glGetUniformLocation(shaderProgram.ID, "model"), 1, GL_FALSE, glm::value_ptr(blockModel));
 
 	glUniform4f(glGetUniformLocation(shaderProgram.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
@@ -233,25 +210,14 @@ int main()
 	
 		// Exports the camera Position to the Fragment Shader for specular lighting
 		glUniform3f(glGetUniformLocation(shaderProgram.ID, "camPos"), camera.Position.x, camera.Position.y, camera.Position.z);
-
-
-		// Binds texture so that is appears in rendering
-		dirtBlock.texture->Bind();
+		
 
 
 		// Export the camMatrix to the Vertex Shader
 		camera.Matrix(shaderProgram, "camMatrix");
 
-		// Draw primitives
-		/*dirtBlock.draw();*/
 
-		dirtBlock.VAO1->Bind();
-		glDrawElements(GL_TRIANGLES, INDICES_SIZE, GL_UNSIGNED_INT, 0);
-
-		// -----------
-		VAO1->Bind();
-		glDrawElements(GL_TRIANGLES, INDICES_SIZE, GL_UNSIGNED_INT, 0);
-		// -----------
+		print_block(block, block->BLOCK_DIRT);
 
 		// Tells OpenGL which Shader Program we want to use
 		lightShader.Activate();
@@ -276,4 +242,32 @@ int main()
 	// Terminate GLFW before ending the program
 	glfwTerminate();
 	return 0;
+}
+
+
+void print_block(Block* block, unsigned int type)
+{
+	VAO* VAO1 = new VAO();
+	VAO1->Bind();
+
+	VBO* VBO1 = new VBO(vertices, VERTICES_SIZE * sizeof(float));
+	EBO* EBO1 = new EBO(indices, INDICES_SIZE * sizeof(unsigned int));
+
+	// Links VBO attributes such as coordinates and colors to VAO
+	VAO1->LinkAttrib(*(VBO1), 0, 3, GL_FLOAT, 11 * sizeof(float), (void*)0);
+	VAO1->LinkAttrib(*(VBO1), 1, 3, GL_FLOAT, 11 * sizeof(float), (void*)(3 * sizeof(float)));
+	VAO1->LinkAttrib(*(VBO1), 2, 2, GL_FLOAT, 11 * sizeof(float), (void*)(6 * sizeof(float)));
+	VAO1->LinkAttrib(*(VBO1), 3, 3, GL_FLOAT, 11 * sizeof(float), (void*)(8 * sizeof(float)));
+
+	// Prevent from accidentally modifying these values
+	VAO1->Unbind();
+	VBO1->Unbind();
+	EBO1->Unbind();
+
+	block->textureList[type]->Bind();
+
+
+	block->VAO_push(VAO1);
+	block->draw();
+
 }

@@ -12,6 +12,8 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/rotate_vector.hpp>
 #include <glm/gtx/vector_angle.hpp>
+#include <vector>
+#include <string>
 
 #include "VAO.h"
 #include "VBO.h"
@@ -19,38 +21,44 @@
 #include "texture.h"
 #include "shaderClass.h"
   
+#define BLOCKS_SIZE 1
+
+
+
+
+
+
 class Block
 {
 public:
+
+	std::vector<Texture*> textureList;
+
+	enum block_T
+	{
+		BLOCK_DIRT,
+
+	} blockType;
+
 	// C'Tor
-	Block(size_t size, GLfloat x, GLfloat y, GLfloat z);
+	Block(block_T type);
 
 	// Draw block
 	void draw();
+	void VAO_push(VAO* VAO1);
+	void texture_push(Texture* texture);
+	void generateTexture(Shader* shaderProg);
+
 
 	// D'Tor
 	~Block();
 
-	// Vertices: The points of the cube / block
-	GLfloat* vertices;
-	// Indices for vertices order
-	GLuint* indices;
+private:
 
-	VAO* VAO1;
-	VBO* VBO1;
-	EBO* EBO1;
-
-	glm::mat4* blockModel;
-	glm::vec3* blockPos;
+	std::vector<VAO*> VAOlist;
 	
-	GLfloat position[COORDS_AMOUNT];
 
 };
-
-
-
-
-
 
 
 #endif

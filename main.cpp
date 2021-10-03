@@ -17,7 +17,7 @@
 #define WIDTH 1920
 #define HEIGHT 1080
 
-GLfloat size = .5f;
+GLfloat size = .1f;
 GLfloat x = -.5f;
 GLfloat y = .5f;
 GLfloat z = -.5f;
@@ -27,8 +27,8 @@ GLfloat* vertices = new GLfloat[VERTICES_SIZE]
 
 	// Left square
 	x, y, z,						1.0f, 0.0f, 0.0f,		1.f, 0.f,		-1.f, 0.f, 0.f,		// Lower left front corner  (0) 
-	x, y,  z + size,				1.0f, 0.0f, 0.0f,		0.f, 0.f,		-1.f, 0.f, 0.f,		// Lower left back corner   (1)
-	x,  y + size, z + size,			0.0f, 1.0f, 0.0f,		0.f, 1.f,		-1.f, 0.f, 0.f,		// Upper left back corner   (2)
+	x, y,  z - size,				1.0f, 0.0f, 0.0f,		0.f, 0.f,		-1.f, 0.f, 0.f,		// Lower left back corner   (1)
+	x,  y + size, z - size,			0.0f, 1.0f, 0.0f,		0.f, 1.f,		-1.f, 0.f, 0.f,		// Upper left back corner   (2)
 	x,  y + size,  z,				0.0f, 1.0f, 0.0f,		1.f, 1.f,		-1.f, 0.f, 0.f,		// Upper left front corner  (3)
 
 	// Front square
@@ -38,28 +38,28 @@ GLfloat* vertices = new GLfloat[VERTICES_SIZE]
 	x, y, z,						1.0f, 0.0f, 0.0f,		0.f, 0.f,		0.f, 0.f, 1.f,		// Lower left front corner  (7)
 
 	// Right square
-	x + size,   y + size, z,			0.0f, 0.0f, 1.0f,	    0.f, 1.0f,		1.f, 0.f, 0.f,		// Upper right front corner (8)
+	x + size, y + size, z,			0.0f, 0.0f, 1.0f,	    0.f, 1.0f,		1.f, 0.f, 0.f,		// Upper right front corner (8)
 	x + size, y, z,					1.0f, 1.0f, 1.0f,	 	0.f, 0.f,		1.f, 0.f, 0.f,		// Lower right front corner (9)
-	x + size, y, z + size,			1.0f, 1.0f, 1.0f,		1.f, 0.f,		1.f, 0.f, 0.f,		// Lower right back corner  (10)
-	x + size, y + size, z + size,	0.0f, 0.0f, 1.0f,		1.f, 1.f,		1.f, 0.f, 0.f,		// Upper right back corner  (11)
+	x + size, y, z - size,			1.0f, 1.0f, 1.0f,		1.f, 0.f,		1.f, 0.f, 0.f,		// Lower right back corner  (10)
+	x + size, y + size, z - size,	0.0f, 0.0f, 1.0f,		1.f, 1.f,		1.f, 0.f, 0.f,		// Upper right back corner  (11)
 
 	// Bottom square
 	x, y, z,						1.0f, 0.0f, 0.0f,		1.f, 0.f,		0.f, -1.f, .0f,		// Lower left front corner  (12) 
-	x, y,  z + size,				1.0f, 0.0f, 0.0f,		1.f, 1.f,		0.f, -1.f, .0f,		// Lower left back corner   (13)
-	x + size, y,  z + size,			1.0f, 1.0f, 1.0f,		0.f, 1.f,		0.f, -1.f, .0f,		// Lower right back corner  (14)
+	x, y, z - size,					1.0f, 0.0f, 0.0f,		1.f, 1.f,		0.f, -1.f, .0f,		// Lower left back corner   (13)
+	x + size, y,  z - size,			1.0f, 1.0f, 1.0f,		0.f, 1.f,		0.f, -1.f, .0f,		// Lower right back corner  (14)
 	x + size, y, z,					1.0f, 1.0f, 1.0f,		0.f, 0.f,		0.f, -1.f, .0f,		// Lower right front corner (15)
 
 	// Upper square
-	x,  y + size,  z + size,			0.0f, 1.0f, 0.0f,		0.f, 1.f,		0.f, 1.f, .0f,		// Upper left back corner   (16)
-	x,  y + size, z,					0.0f, 1.0f, 0.0f,		0.f, 0.f,		0.f, 1.f, .0f,		// Upper left front corner  (17)
+	x,  y + size,  z - size,		0.0f, 1.0f, 0.0f,		0.f, 1.f,		0.f, 1.f, .0f,		// Upper left back corner   (16)
+	x,  y + size, z,				0.0f, 1.0f, 0.0f,		0.f, 0.f,		0.f, 1.f, .0f,		// Upper left front corner  (17)
 	x + size,  y + size, z,			0.0f, 0.0f, 1.0f,		1.f, 0.f,		0.f, 1.f, .0f,		// Upper right front corner (18)
-	x + size,  y + size,  z + size, 0.0f, 0.0f, 1.0f,		1.f, 1.f,		0.f, 1.f, .0f,		// Upper right back corner  (19)
+	x + size,  y + size,  z - size, 0.0f, 0.0f, 1.0f,		1.f, 1.f,		0.f, 1.f, .0f,		// Upper right back corner  (19)
 
 	// Back square
-	x, y, z + size,					1.0f, 0.0f, 0.0f,			1.f, 0.f,		0.f, 0.f, -1.f,		// Lower left back corner   (20)
-	x, y + size, z + size,			0.0f, 1.0f, 0.0f,			1.f, 1.f,		0.f, 0.f, -1.f,		// Upper left back corner   (21)
-	x + size, y + size, z + size,	0.0f, 0.0f, 1.0f,			0.f, 1.f,		0.f, 0.f, -1.f,		// Upper right back corner  (22)
-	x + size, y,  z + size,			1.0f, 1.0f, 1.0f,			0.f, 0.f,		0.f, 0.f, -1.f		// Lower right back corner  (23)
+	x, y, z - size,					1.0f, 0.0f, 0.0f,			1.f, 0.f,		0.f, 0.f, -1.f,		// Lower left back corner   (20)
+	x, y + size, z - size,			0.0f, 1.0f, 0.0f,			1.f, 1.f,		0.f, 0.f, -1.f,		// Upper left back corner   (21)
+	x + size, y + size, z - size,	0.0f, 0.0f, 1.0f,			0.f, 1.f,		0.f, 0.f, -1.f,		// Upper right back corner  (22)
+	x + size, y,  z - size,			1.0f, 1.0f, 1.0f,			0.f, 0.f,		0.f, 0.f, -1.f		// Lower right back corner  (23)
 
 };
 
@@ -67,31 +67,31 @@ GLfloat* vertices = new GLfloat[VERTICES_SIZE]
 GLuint* indices = new GLuint[INDICES_SIZE]
 {
 	0, 1, 2,
-	0, 2, 3,
-	0, 4, 7,
-	0, 7, 3,
-	3, 7, 6,
-	3, 6, 2,
-	2, 6, 5,
-	2, 5, 1,
-	1, 5, 4,
-	1, 4, 0,
+	0, 3, 2,
 	4, 5, 6,
-	4, 6, 7
+	4, 7, 6,
+	8, 9, 10,
+	8, 11, 10,
+	12, 13, 14,
+	12, 15, 14,
+	16, 17, 18,
+	16, 19, 18,
+	20, 21, 22,
+	20, 23, 22
 
 };
 
 
 GLfloat lightVertices[] =
 { //     COORDINATES     //
-	-0.1f, 0.3f,  0.1f,
-	-0.1f, 0.3f, -0.1f,
-	 0.1f, 0.3f, -0.1f,
-	 0.1f, 0.3f,  0.1f,
-	-0.1f,  0.5f,  0.1f,
-	-0.1f,  0.5f, -0.1f,
-	 0.1f,  0.5f, -0.1f,
-	 0.1f,  0.5f,  0.1f
+	-0.1f, -0.1f,  0.1f,
+	-0.1f, -0.1f, -0.1f,
+	 0.1f, -0.1f, -0.1f,
+	 0.1f, -0.1f,  0.1f,
+	-0.1f,  0.1f,  0.1f,
+	-0.1f,  0.1f, -0.1f,
+	 0.1f,  0.1f, -0.1f,
+	 0.1f,  0.1f,  0.1f
 };
 
 GLuint lightIndices[] =
@@ -147,37 +147,36 @@ int main()
 
 	// Generates Shader object using shaders default.vert and default.frag
 	Shader shaderProgram("default.vert", "default.frag");
-	shaderProgram.Activate();
 
 	
-	/*Texture brickTex("testPic.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
-	brickTex.texUnit(shaderProgram, "tex0", 0);*/
-
-	Dirt dirtBlock(.5f, -.5f, .05f, -.5f, &shaderProgram);
-	// ------------------------------------------------------------
-	//VAO* VAO1 = new VAO();
-	//VAO1->Bind();
-
-	//VBO* VBO1 = new VBO(vertices, VERTICES_SIZE * sizeof(float));
-	//EBO* EBO1 = new EBO(indices, INDICES_SIZE * sizeof(unsigned int));
-
-
-	//glm::vec3 blockPos = glm::vec3(0.f, 0.f, 0.f);
-	//glm::mat4 blockModel = glm::mat4(1.0f);
-	//blockModel = glm::translate(blockModel, blockPos);
-
-	//// Links VBO attributes such as coordinates and colors to VAO
-	//VAO1->LinkAttrib(*(VBO1), 0, 3, GL_FLOAT, 11 * sizeof(float), (void*)0);
-	//VAO1->LinkAttrib(*(VBO1), 1, 3, GL_FLOAT, 11 * sizeof(float), (void*)(3 * sizeof(float)));
-	//VAO1->LinkAttrib(*(VBO1), 2, 2, GL_FLOAT, 11 * sizeof(float), (void*)(6 * sizeof(float)));
-	//VAO1->LinkAttrib(*(VBO1), 3, 3, GL_FLOAT, 11 * sizeof(float), (void*)(8 * sizeof(float)));
-
-	//// Prevent from accidentally modifying these values
-	//VAO1->Unbind();
-	//VBO1->Unbind();
-	//EBO1->Unbind();
 
 	// ------------------------------------------------------------
+	VAO* VAO1 = new VAO();
+	VAO1->Bind();
+
+	VBO* VBO1 = new VBO(vertices, VERTICES_SIZE * sizeof(float));
+	EBO* EBO1 = new EBO(indices, INDICES_SIZE * sizeof(unsigned int));
+
+
+	glm::vec3 blockPos = glm::vec3(0.f, 0.f, 0.f);
+	glm::mat4 blockModel = glm::mat4(1.0f);
+	blockModel = glm::translate(blockModel, blockPos);
+
+	// Links VBO attributes such as coordinates and colors to VAO
+	VAO1->LinkAttrib(*(VBO1), 0, 3, GL_FLOAT, 11 * sizeof(float), (void*)0);
+	VAO1->LinkAttrib(*(VBO1), 1, 3, GL_FLOAT, 11 * sizeof(float), (void*)(3 * sizeof(float)));
+	VAO1->LinkAttrib(*(VBO1), 2, 2, GL_FLOAT, 11 * sizeof(float), (void*)(6 * sizeof(float)));
+	VAO1->LinkAttrib(*(VBO1), 3, 3, GL_FLOAT, 11 * sizeof(float), (void*)(8 * sizeof(float)));
+
+	// Prevent from accidentally modifying these values
+	VAO1->Unbind();
+	VBO1->Unbind();
+	EBO1->Unbind();
+
+	// ------------------------------------------------------------
+
+	Dirt dirtBlock(.5f, -.5f, .5f, -.5f, &shaderProgram);
+
 
 	// Shader for light cube
 	Shader lightShader("light.vert", "light.frag");
@@ -200,22 +199,17 @@ int main()
 	glm::mat4 lightModel = glm::mat4(1.0f);
 	lightModel = glm::translate(lightModel, lightPos);
 
-	//glm::vec4 testColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-	glm::vec3 testPos = glm::vec3(0.0f, 0.0f, 0.0f);
-	glm::mat4 testModel = glm::mat4(1.0f);
-	testModel = glm::translate(testModel, testPos);
-
 	lightShader.Activate();
 	glUniformMatrix4fv(glGetUniformLocation(lightShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(lightModel));
 	glUniform4f(glGetUniformLocation(lightShader.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
 
 	
-	// ------------------
-	glUniformMatrix4fv(glGetUniformLocation(shaderProgram.ID, "model"), 1, GL_FALSE, glm::value_ptr(testModel));
-	// ------------------
 
 	shaderProgram.Activate();
-	glUniformMatrix4fv(glGetUniformLocation(shaderProgram.ID, "model"), 1, GL_FALSE, glm::value_ptr(dirtBlock.blockModel));
+	glUniformMatrix4fv(glGetUniformLocation(shaderProgram.ID, "model"), 1, GL_FALSE, glm::value_ptr(*dirtBlock.blockModel));
+
+	glUniformMatrix4fv(glGetUniformLocation(shaderProgram.ID, "model"), 1, GL_FALSE, glm::value_ptr(blockModel));
+
 	glUniform4f(glGetUniformLocation(shaderProgram.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
 	glUniform3f(glGetUniformLocation(shaderProgram.ID, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
 
@@ -235,29 +229,28 @@ int main()
 		camera.Inputs(window);
 		camera.updateMatrix(45.f, .1f, 100.f);
 
-		// Tell OpenGL which Shader Program we want to use
-		shaderProgram.Activate();
+		shaderProgram.Activate();  
 	
 		// Exports the camera Position to the Fragment Shader for specular lighting
 		glUniform3f(glGetUniformLocation(shaderProgram.ID, "camPos"), camera.Position.x, camera.Position.y, camera.Position.z);
-		
-	
-		// Export the camMatrix to the Vertex Shader
-		camera.Matrix(shaderProgram, "camMatrix");
-		
+
 
 		// Binds texture so that is appears in rendering
 		dirtBlock.texture->Bind();
 
-		//glDrawElements(GL_TRIANGLES, INDICES_SIZE, GL_UNSIGNED_INT, 0);
 
-		
+		// Export the camMatrix to the Vertex Shader
+		camera.Matrix(shaderProgram, "camMatrix");
+
 		// Draw primitives
-		dirtBlock.draw();
+		/*dirtBlock.draw();*/
+
+		dirtBlock.VAO1->Bind();
+		glDrawElements(GL_TRIANGLES, INDICES_SIZE, GL_UNSIGNED_INT, 0);
 
 		// -----------
-		/*VAO1->Bind();
-		glDrawElements(GL_TRIANGLES, INDICES_SIZE, GL_UNSIGNED_INT, 0);*/
+		VAO1->Bind();
+		glDrawElements(GL_TRIANGLES, INDICES_SIZE, GL_UNSIGNED_INT, 0);
 		// -----------
 
 		// Tells OpenGL which Shader Program we want to use

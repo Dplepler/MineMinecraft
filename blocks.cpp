@@ -2,6 +2,9 @@
 
 Block::Block(size_t size, GLfloat x, GLfloat y, GLfloat z)
 {
+	unsigned int i = 0;
+
+
 	position[0] = x;
 	position[1] = y;
 	position[2] = z;
@@ -73,9 +76,9 @@ Block::Block(size_t size, GLfloat x, GLfloat y, GLfloat z)
 	this->EBO1 = new EBO(indices, INDICES_SIZE * sizeof(unsigned int));
 	
 
-	this->blockPos = glm::vec3(0.f, 0.f, 0.f);
-	this->blockModel = glm::mat4(1.0f);
-	this->blockModel = glm::translate(blockModel, blockPos);
+	this->blockPos = new glm::vec3(0.f, 0.f, 0.f);
+	this->blockModel = new glm::mat4(1.0f);
+	*this->blockModel = glm::translate(*this->blockModel, *this->blockPos);
 
 	// Links VBO attributes such as coordinates and colors to VAO
 	this->VAO1->LinkAttrib(*(this->VBO1), 0, 3, GL_FLOAT, 11 * sizeof(float), (void*)0);

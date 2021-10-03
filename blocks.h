@@ -18,7 +18,7 @@
 #include "EBO.h"
 #include "texture.h"
 #include "shaderClass.h"
-
+  
 class Block
 {
 public:
@@ -40,8 +40,8 @@ public:
 	VBO* VBO1;
 	EBO* EBO1;
 
-	glm::mat4 blockModel;
-	glm::vec3 blockPos;
+	glm::mat4* blockModel;
+	glm::vec3* blockPos;
 	
 	GLfloat position[COORDS_AMOUNT];
 

@@ -152,7 +152,6 @@
   <ItemGroup>
     <ClCompile Include="blocks.cpp" />
     <ClCompile Include="camera.cpp" />
-    <ClCompile Include="dirt.cpp" />
     <ClCompile Include="EBO.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="main.cpp" />
@@ -161,6 +160,7 @@
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="VAO.cpp" />
     <ClCompile Include="VBO.cpp" />
+    <ClCompile Include="worldGen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="default.frag" />
@@ -171,12 +171,12 @@
   <ItemGroup>
     <ClInclude Include="blocks.h" />
     <ClInclude Include="camera.h" />
-    <ClInclude Include="dirt.h" />
     <ClInclude Include="EBO.h" />
     <ClInclude Include="shaderClass.h" />
     <ClInclude Include="texture.h" />
     <ClInclude Include="VAO.h" />
     <ClInclude Include="VBO.h" />
+    <ClInclude Include="worldGen.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\Downloads\testPic.jpg" />

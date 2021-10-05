@@ -23,14 +23,12 @@
   
 #define BLOCKS_SIZE 1
 
-
-
-
-
-
 class Block
 {
 public:
+
+	void worldGen();
+	void print_block(GLfloat x, GLfloat y, GLfloat z, GLfloat size);
 
 	std::vector<Texture*> textureList;
 

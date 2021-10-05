@@ -54,7 +54,7 @@
     <ClCompile Include="blocks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="dirt.cpp">
+    <ClCompile Include="worldGen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -94,8 +94,8 @@
     <ClInclude Include="blocks.h">
       <Filter>Header Files\Blocks</Filter>
     </ClInclude>
-    <ClInclude Include="dirt.h">
-      <Filter>Header Files\Blocks</Filter>
+    <ClInclude Include="worldGen.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

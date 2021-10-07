@@ -27,8 +27,8 @@ class Block
 {
 public:
 
-	void worldGen();
 	void print_block(GLfloat x, GLfloat y, GLfloat z, GLfloat size);
+	void print_world();
 
 	std::vector<Texture*> textureList;
 
@@ -39,7 +39,7 @@ public:
 	} blockType;
 
 	// C'Tor
-	Block(block_T type);
+	Block(block_T type, Shader* shaderProgram);
 
 	// Draw block
 	void draw();
@@ -54,6 +54,7 @@ public:
 private:
 
 	std::vector<VAO*> VAOlist;
+
 	
 
 };

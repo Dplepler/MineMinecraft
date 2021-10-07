@@ -15,6 +15,7 @@ void Camera::updateMatrix(float FOVdeg, float nearPlane, float farPlane)
 
 	// Makes camera look in the right direction from the right position
 	view = glm::lookAt(Position, Position + Orientation, Up);
+
 	// Adds perspective to the scene
 	projection = glm::perspective(glm::radians(FOVdeg), (float)width / height, nearPlane, farPlane);
 
@@ -43,7 +44,7 @@ void Camera::Inputs(GLFWwindow* window)
 	}
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 	{
-		Position += speed * Orientation;
+		Position += speed * glm::normalize(glm::vec3(Orientation.x, 0, Orientation.z));
 	}
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 	{
@@ -51,7 +52,7 @@ void Camera::Inputs(GLFWwindow* window)
 	}
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
 	{
-		Position += speed * -Orientation;
+		Position -= speed * glm::normalize(glm::vec3(Orientation.x, 0, Orientation.z));
 	}
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 	{
@@ -63,15 +64,15 @@ void Camera::Inputs(GLFWwindow* window)
 	}
 	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
 	{
-		Position += speed * -Up;
+		Position -= speed * Up;
 	}
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 	{
-		speed = 0.006f;
+		speed = 0.06f;
 	}
 	else if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE)
 	{
-		speed = 0.001f;
+		speed = 0.01f;
 	}
 
 	// Hides mouse cursor
@@ -100,6 +101,8 @@ void Camera::Inputs(GLFWwindow* window)
 
 	// Rotates the Orientation left and right
 	Orientation = glm::rotate(Orientation, glm::radians(-rotY), Up);
+
+	//front = glm::cross(Up, -Up);
 
 	// Sets mouse cursor to the middle of the screen so that it doesn't end up roaming around
 	glfwSetCursorPos(window, (width / 2), (height / 2));

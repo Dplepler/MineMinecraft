@@ -1,8 +1,9 @@
 #include "blocks.h"
 
-Block::Block(block_T type) 
+Block::Block(block_T type, Shader* shaderProgram) 
 {
 	this->blockType = type;
+	this->generateTexture(shaderProgram);
 }
 
 
@@ -37,19 +38,14 @@ void Block::generateTexture(Shader* shaderProg)
 	for (i = 0; i < BLOCKS_SIZE; i++)
 	{
 		// Initialize texture
-		Texture* texture = new Texture(("textures/" + std::to_string(i) + ".jpg").c_str(), GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
+		Texture* texture = new Texture(("textures/" + std::to_string(i) + ".jpg").c_str(), GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
 		texture->texUnit(*shaderProg, ("tex" + std::to_string(i)).c_str(), 0);
 
 		texture_push(texture);
 	}
 }
 
-void Block::worldGen()
-{
 
-
-
-}
 
 void Block::print_block(GLfloat x, GLfloat y, GLfloat z, GLfloat size)
 {
@@ -137,6 +133,22 @@ void Block::print_block(GLfloat x, GLfloat y, GLfloat z, GLfloat size)
 	this->draw();
 
 }
+
+void Block::print_world()
+{
+	unsigned int i = 0;
+	size_t size = VAOlist.size();
+
+	for (i = 0; i < size; i++)
+	{
+		VAOlist[i]->Bind();
+		// Draw primitives, number of indices, datatype of indices, index of indices
+		glDrawElements(GL_TRIANGLES, INDICES_SIZE, GL_UNSIGNED_INT, 0);
+
+	}
+}
+
+
 
 
 

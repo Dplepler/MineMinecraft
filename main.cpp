@@ -14,6 +14,7 @@
 #include "EBO.h"
 #include "camera.h"
 #include "blocks.h"
+#include "worldGen.h"
 
 #define WIDTH 1920
 #define HEIGHT 1080
@@ -86,15 +87,13 @@ int main()
 	// In this case the viewport goes from x = 0, y = 0, to x = 1920, y = 1080
 	glViewport(0, 0, WIDTH, HEIGHT);
 
-
+	
 
 	// Generates Shader object using shaders default.vert and default.frag
 	Shader shaderProgram("default.vert", "default.frag");
 
-	Block* block = new Block(block->BLOCK_DIRT);
-
-	block->generateTexture(&shaderProgram);
-
+	Block* block = new Block(block->BLOCK_DIRT, &shaderProgram);
+	generate_world(block);
 
 	// Shader for light cube
 	Shader lightShader("light.vert", "light.frag");
@@ -155,8 +154,7 @@ int main()
 		// Export the camMatrix to the Vertex Shader
 		camera.Matrix(shaderProgram, "camMatrix");
 
-		block->print_block(x, y, z, size);
-		block->print_block(x + 1.7f, y, z, 2.f + 0.5f);
+		block->print_world();
 
 		// Tells OpenGL which Shader Program we want to use
 		lightShader.Activate();

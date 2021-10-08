@@ -4,7 +4,7 @@ Camera::Camera(int width, int height, glm::vec3 position)
 {
 	Camera::width = width;
 	Camera::height = height;
-	Position = position;
+	Position = glm::vec3(0.f, 1.f, 0.f);
 }
 
 void Camera::updateMatrix(float FOVdeg, float nearPlane, float farPlane)
@@ -31,8 +31,10 @@ void Camera::Matrix(Shader& shader, const char* uniform)
 
 
 
-void Camera::Inputs(GLFWwindow* window)
+void Camera::Inputs(GLFWwindow* window, Block* block)
 {
+	glm::vec3 prevPos = Position;
+
 	// Handles key inputs
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 	{
@@ -73,6 +75,11 @@ void Camera::Inputs(GLFWwindow* window)
 	else if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE)
 	{
 		speed = 0.01f;
+	}
+
+	if (block->collision(Position))
+	{
+		Position = prevPos;
 	}
 
 	// Hides mouse cursor

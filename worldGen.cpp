@@ -27,17 +27,12 @@ void generate_world(Block* blocks)
 		for (y = 0; y < height; y++)
 		{
 			z++;
-			blocks->print_block(cubeSize * float(x), fNoiseOutput2D[y * width + x], cubeSize * float(z), cubeSize);
+			blocks->print_block(glm::vec3(cubeSize * float(x), fNoiseOutput2D[y * width + x], cubeSize * float(z)), cubeSize, BLOCK_DIRT);
 		}
 	
 		z = 0;
 	}
 			
-
-			
-
-	
-
 }
 
 void PerlinNoise2D(int nWidth, int nHeight, float* fSeed, int nOctaves, float fBias, float* fOutput)

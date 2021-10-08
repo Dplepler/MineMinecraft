@@ -19,13 +19,6 @@
 #define WIDTH 1920
 #define HEIGHT 1080
 
-GLfloat size = .1f;
-GLfloat x = -.5f;
-GLfloat y = .5f;
-GLfloat z = -.5f;
-
-
-
 
 GLfloat lightVertices[] =
 { //     COORDINATES     //
@@ -92,7 +85,7 @@ int main()
 	// Generates Shader object using shaders default.vert and default.frag
 	Shader shaderProgram("default.vert", "default.frag");
 
-	Block* block = new Block(block->BLOCK_DIRT, &shaderProgram);
+	Block* block = new Block(&shaderProgram);
 	generate_world(block);
 
 	// Shader for light cube
@@ -133,7 +126,7 @@ int main()
 
 	glEnable(GL_DEPTH_TEST);
 
-	Camera camera(WIDTH, HEIGHT, glm::vec3(0.f, 0.f, 2.f));
+	Camera camera(WIDTH, HEIGHT, glm::vec3(0.f, 0.f, 0.f));
 
 	// Main while loop
 	while (!glfwWindowShouldClose(window))
@@ -143,8 +136,8 @@ int main()
 		// Clean the back buffer and assign the new color to it
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		camera.Inputs(window);
-		camera.updateMatrix(45.f, .1f, 100.f);
+		camera.Inputs(window, block);
+		camera.updateMatrix(45.f, .03f, 100.f);
 
 		shaderProgram.Activate();  
 	
@@ -155,6 +148,7 @@ int main()
 		camera.Matrix(shaderProgram, "camMatrix");
 
 		block->print_world();
+		
 
 		// Tells OpenGL which Shader Program we want to use
 		lightShader.Activate();

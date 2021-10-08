@@ -14,6 +14,7 @@
 #include <glm/gtx/vector_angle.hpp>
 #include <vector>
 #include <string>
+#include <cmath>
 
 #include "VAO.h"
 #include "VBO.h"
@@ -27,26 +28,19 @@ class Block
 {
 public:
 
-	void print_block(GLfloat x, GLfloat y, GLfloat z, GLfloat size);
-	void print_world();
-
 	std::vector<Texture*> textureList;
 
-	enum block_T
-	{
-		BLOCK_DIRT,
-
-	} blockType;
-
 	// C'Tor
-	Block(block_T type, Shader* shaderProgram);
+	Block(Shader* shaderProgram);
 
 	// Draw block
+	void print_block(glm::vec3 position, GLfloat size, block_T type);
+	void print_world();
 	void draw();
 	void VAO_push(VAO* VAO1);
 	void texture_push(Texture* texture);
 	void generateTexture(Shader* shaderProg);
-
+	bool collision(glm::vec3 position);
 
 	// D'Tor
 	~Block();

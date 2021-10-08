@@ -11,6 +11,7 @@
 #define GLM_SWIZZLE
 
 #include "shaderClass.h"
+#include "blocks.h"
 
 class Camera
 {
@@ -19,7 +20,6 @@ public:
 	glm::vec3 Position;
 	glm::vec3 Orientation = glm::vec3(0.0f, 0.0f, -1.0f);
 	glm::vec3 Up = glm::vec3(0.0f, 1.0f, 0.0f);
-	glm::vec3 front = glm::vec3(0.0f, 0.0f, -1.0f);
 	glm::mat4 cameraMatrix = glm::mat4(1.0f);
 
 	// Stores the width and height of the window
@@ -38,6 +38,6 @@ public:
 	// Exports the camera matrix to a shader
 	void Matrix(Shader& shader, const char* uniform);
 	// Handles camera inputs
-	void Inputs(GLFWwindow* window);
+	void Inputs(GLFWwindow* window, Block* block);
 };
 #endif

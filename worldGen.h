@@ -4,7 +4,7 @@
 #include "blocks.h"
 #include <ctime>
 
-void generate_world(Block* blocks);
+void generate_world(Chunk* blocks);
 void PerlinNoise2D(int nWidth, int nHeight, float* fSeed, int nOctaves, float fBias, float* fOutput);
 
 

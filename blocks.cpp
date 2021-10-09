@@ -1,12 +1,12 @@
 #include "blocks.h"
 
-Block::Block(Shader* shaderProgram) 
+Chunk::Chunk(Shader* shaderProgram) 
 {
 	this->generateTexture(shaderProgram);
 }
 
 
-void Block::draw()
+void Chunk::draw()
 {
 	size_t size = VAOlist.size();
 
@@ -18,17 +18,17 @@ void Block::draw()
 	
 }
 
-void Block::VAO_push(VAO* VAO1)
+void Chunk::VAO_push(VAO* VAO1)
 {
 	this->VAOlist.push_back(VAO1);
 }
 
-void Block::texture_push(Texture* texture)
+void Chunk::texture_push(Texture* texture)
 {
 	this->textureList.push_back(texture);
 }
 
-void Block::generateTexture(Shader* shaderProg)
+void Chunk::generateTexture(Shader* shaderProg)
 {
 	Texture* texture = nullptr;
 	unsigned int i = 0;
@@ -47,7 +47,7 @@ void Block::generateTexture(Shader* shaderProg)
 
 
 
-void Block::print_block(glm::vec3 position, GLfloat size, block_T type)
+void Chunk::print_block(glm::vec3 position, GLfloat size, block_T type)
 {
 	GLfloat* vertices = new GLfloat[VERTICES_SIZE]
 	{ //     COORDINATES     /     COLORS					 / TexCoord    //
@@ -138,7 +138,7 @@ void Block::print_block(glm::vec3 position, GLfloat size, block_T type)
 
 }
 
-void Block::print_world()
+void Chunk::print_world()
 {
 	unsigned int i = 0;
 	size_t size = this->VAOlist.size();
@@ -154,7 +154,7 @@ void Block::print_world()
 }
 
 
-bool Block::collision(glm::vec3 position)
+bool Chunk::collision(glm::vec3 position)
 {
 	bool flag = false;
 
@@ -164,20 +164,22 @@ bool Block::collision(glm::vec3 position)
 
 	GLfloat x = 0.f;
 	GLfloat y = 0.f;
+	GLfloat y2 = 0.f;
 	GLfloat z = 0.f;
-
+	GLfloat distance = 0;
 	
 	for (i = 0; i < size && !flag; i++)
 	{
 
-		x = this->VAOlist[i]->position.x;
-		y = this->VAOlist[i]->position.y;
-		z = this->VAOlist[i]->position.z;
+		x = fmax(this->VAOlist[i]->position.x, fmin(position.x, this->VAOlist[i]->position.x + cubeSize));
+		y = fmax(this->VAOlist[i]->position.y, fmin(position.y, this->VAOlist[i]->position.y + cubeSize));
+		z = fmax(this->VAOlist[i]->position.z, fmin(position.z, this->VAOlist[i]->position.z + cubeSize));
 
+		y2 = fmax(this->VAOlist[i]->position.y, fmin(position.y - cubeSize, this->VAOlist[i]->position.y + cubeSize));
 
 		// Check if camera and block are colliding
-		if (sqrt((x - position.x) * (x - position.x) + (y - position.y) * (y - position.y) + (z - position.z) * (z - position.z)) < .07f
-			|| sqrt((x - position.x) * (x - position.x) + (y - (position.y - cubeSize * 1.5f)) * (y - (position.y - cubeSize * 1.5f)) + (z - position.z) * (z - position.z)) < .07f)
+		if (sqrt((x - position.x) * (x - position.x) + (y - position.y) * (y - position.y) + (z - position.z) * (z - position.z)) < .045f
+			|| sqrt((x - position.x) * (x - position.x) + (y2 - (position.y - cubeSize)) * (y2 - (position.y - cubeSize)) + (z - position.z) * (z - position.z)) < .045f)
 		{
 			flag = true;
 		}
@@ -186,10 +188,5 @@ bool Block::collision(glm::vec3 position)
 	return flag;
 }
 
-
-
-
-
-
-Block::~Block() { }
+Chunk::~Chunk() { }
 

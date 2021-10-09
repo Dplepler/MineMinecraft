@@ -28,7 +28,12 @@ public:
 
 	// Adjust the speed of the camera and it's sensitivity when looking around
 	float speed = 0.01f;
+	float gravity = 0.00000001f;
 	float sensitivity = 100.0f;
+
+	bool jumping = false;
+
+	GLfloat relativeHeight = 0.f;
 
 	// Camera constructor to set up initial values
 	Camera(int width, int height, glm::vec3 position);
@@ -38,6 +43,11 @@ public:
 	// Exports the camera matrix to a shader
 	void Matrix(Shader& shader, const char* uniform);
 	// Handles camera inputs
-	void Inputs(GLFWwindow* window, Block* block);
+	void Inputs(GLFWwindow* window, Chunk* block);
+
+	void Forward(glm::vec3 position, glm::vec3 orientation);
+	void Right(glm::vec3 position, glm::vec3 orientation);
+	void Backwards(glm::vec3 position, glm::vec3 orientation);
+	void Left(glm::vec3 position, glm::vec3 orientation);
 };
 #endif

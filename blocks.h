@@ -24,14 +24,14 @@
   
 #define BLOCKS_SIZE 1
 
-class Block
+class Chunk
 {
 public:
 
 	std::vector<Texture*> textureList;
 
 	// C'Tor
-	Block(Shader* shaderProgram);
+	Chunk(Shader* shaderProgram);
 
 	// Draw block
 	void print_block(glm::vec3 position, GLfloat size, block_T type);
@@ -43,7 +43,7 @@ public:
 	bool collision(glm::vec3 position);
 
 	// D'Tor
-	~Block();
+	~Chunk();
 
 private:
 

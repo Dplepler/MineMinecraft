@@ -85,7 +85,7 @@ int main()
 	// Generates Shader object using shaders default.vert and default.frag
 	Shader shaderProgram("default.vert", "default.frag");
 
-	Block* block = new Block(&shaderProgram);
+	Chunk* block = new Chunk(&shaderProgram);
 	generate_world(block);
 
 	// Shader for light cube

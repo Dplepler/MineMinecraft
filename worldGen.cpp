@@ -1,7 +1,7 @@
 
 #include "worldGen.h"
 
-void generate_world(Block* blocks)
+void generate_world(Chunk* blocks)
 {
 	
 

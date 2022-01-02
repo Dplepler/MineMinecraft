@@ -3,17 +3,15 @@
 
 #include "blocks.h"
 
-
 class World
 {
 
 public:
 	
 	// C'Tor
-	World();
+	World() = default;
 	void push_chunk(Chunk* chunk);
 	void load_close_chunk(glm::vec3 position);
-
 
 
 	std::vector<Chunk*> chunks;

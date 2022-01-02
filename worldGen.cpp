@@ -1,30 +1,27 @@
 
 #include "worldGen.h"
 
+static const int width = 80;
+static const int height = 80;
+
 void generate_world(Chunk* blocks)
 {
-	
 
-	int width = 80;
-	int height = 80;
+	
 	int size = width * width * height;
 	float cubeSize = .05f;
 
 	float* fNoiseSeed2D = new float[size];
 	float* fNoiseOutput2D = new float[size];
-	unsigned int i = 0;
-	unsigned int i2 = 0;
-	int x = 0;
-	int y = 0;
-	int z = 0;
+	uint16_t z = 0;
 
 	// Generate terrain using Perlin Noise
-	for (i = 0; i < size; i++) fNoiseSeed2D[i] = (float)rand() / (float)RAND_MAX;
+	for (unsigned int i = 0; i < size; i++) fNoiseSeed2D[i] = (float)rand() / (float)RAND_MAX;
 	PerlinNoise2D(width, height, fNoiseSeed2D, 5, 2.0f, fNoiseOutput2D);
 
-	for (x = 0; x < width; x++)
+	for (uint16_t x = 0; x < width; x++)
 	{
-		for (y = 0; y < height; y++)
+		for (uint16_t y = 0; y < height; y++)
 		{
 			z++;
 			blocks->print_block(glm::vec3(cubeSize * float(x), fNoiseOutput2D[y * width + x], cubeSize * float(z)), cubeSize, BLOCK_DIRT);
@@ -58,14 +55,15 @@ void PerlinNoise2D(int nWidth, int nHeight, float* fSeed, int nOctaves, float fB
 	float value = 0;
 	float mod = 0;
 
-	for (int x = 0; x < nWidth; x++)
-		for (int y = 0; y < nHeight; y++)
+	for (uint16_t x = 0; x < nWidth; x++)
+	{
+		for (uint16_t y = 0; y < nHeight; y++)
 		{
 			fNoise = 0.0f;
 			fScaleAcc = 0.0f;
 			fScale = 0.05f;
 
-			for (int o = 0; o < nOctaves; o++)
+			for (uint16_t o = 0; o < nOctaves; o++)
 			{
 				nPitch = nWidth >> o;
 				nSampleX1 = (x / nPitch) * nPitch;
@@ -95,6 +93,8 @@ void PerlinNoise2D(int nWidth, int nHeight, float* fSeed, int nOctaves, float fB
 			else
 				fOutput[y * nWidth + x] = value - mod;
 		}
+	}
+		
 
 
 }

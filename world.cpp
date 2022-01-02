@@ -1,13 +1,8 @@
 #include "world.h"
 
-
-World::World() { }
-
 void World::push_chunk(Chunk* chunk)
 {
 	this->chunks.push_back(chunk);
-
-
 }
 
 void World::load_close_chunk(glm::vec3 position)

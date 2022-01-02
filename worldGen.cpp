@@ -5,8 +5,8 @@ void generate_world(Chunk* blocks)
 {
 	
 
-	int width = 50;
-	int height = 50;
+	int width = 80;
+	int height = 80;
 	int size = width * width * height;
 	float cubeSize = .05f;
 

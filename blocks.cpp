@@ -138,7 +138,7 @@ void Chunk::print_block(glm::vec3 position, GLfloat size, block_T type)
 
 }
 
-void Chunk::print_world()
+void Chunk::print_chunk()
 {
 	unsigned int i = 0;
 	size_t size = this->VAOlist.size();
@@ -187,6 +187,8 @@ bool Chunk::collision(glm::vec3 position)
 
 	return flag;
 }
+
+
 
 Chunk::~Chunk() { }
 

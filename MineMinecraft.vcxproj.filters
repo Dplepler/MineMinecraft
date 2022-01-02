@@ -57,6 +57,9 @@
     <ClCompile Include="worldGen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="world.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="default.frag">
@@ -95,6 +98,9 @@
       <Filter>Header Files\Blocks</Filter>
     </ClInclude>
     <ClInclude Include="worldGen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="world.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

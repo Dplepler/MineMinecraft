@@ -147,7 +147,7 @@ int main()
 		// Export the camMatrix to the Vertex Shader
 		camera.Matrix(shaderProgram, "camMatrix");
 
-		block->print_world();
+		block->print_chunk();
 		
 
 		// Tells OpenGL which Shader Program we want to use

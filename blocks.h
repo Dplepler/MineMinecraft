@@ -35,7 +35,7 @@ public:
 
 	// Draw block
 	void print_block(glm::vec3 position, GLfloat size, block_T type);
-	void print_world();
+	void print_chunk();
 	void draw();
 	void VAO_push(VAO* VAO1);
 	void texture_push(Texture* texture);

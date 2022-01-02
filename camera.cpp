@@ -78,7 +78,7 @@ void Camera::Inputs(GLFWwindow* window, Chunk* block)
 			{
 				Position.y = prevPos.y;
 				jumping = true;
-				relativeHeight = Position.y + .15f;
+				relativeHeight = Position.y + .17f;
 			}
 			else
 			{
@@ -112,7 +112,7 @@ void Camera::Inputs(GLFWwindow* window, Chunk* block)
 	if (!jumping)
 	{
 		// Gravity
-		gravity += 0.000001f;
+		gravity += 0.0000000001f;
 		Position.y -= speed + gravity;
 
 
@@ -125,14 +125,14 @@ void Camera::Inputs(GLFWwindow* window, Chunk* block)
 	else
 	{
 
-		gravity += 0.000001f;
-		Position.y += gravity + speed;
+		gravity -= 0.0001f;
+		Position.y += speed + gravity;
 
 		if (Position.y >= relativeHeight)
 		{
 			jumping = false;
 			gravity = 0.00000001f;
-			relativeHeight = .15f;
+			relativeHeight = .17f;
 
 		}
 		
